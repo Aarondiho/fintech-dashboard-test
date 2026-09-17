@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction Reporting Dashboard</title>
+    <script>
+      (function() {
+        try {
+          var _f = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return _f; },
+            set: function(fn) { _f = fn; }
+          });
+        } catch (e) {
+          try {
+            var _pf = Window.prototype.fetch;
+            Object.defineProperty(Window.prototype, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function() { return _pf; },
+              set: function(fn) { _pf = fn; }
+            });
+          } catch (e2) {}
+        }
+      })();
+    </script>
+    <meta name="description" content="Clean, responsive fintech transaction reporting dashboard with server-side pagination, real-time filters, aggregate metrics, and audit ledger records." />
+    <meta property="og:title" content="Transaction Reporting Dashboard" />
+    <meta property="og:description" content="Clean, responsive fintech transaction reporting dashboard with server-side pagination, real-time filters, aggregate metrics, and audit ledger records." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="antialiased bg-white selection:bg-[#D22C3C]/20 selection:text-[#D22C3C]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
