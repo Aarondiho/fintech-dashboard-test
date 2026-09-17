@@ -4,7 +4,7 @@ import random
 import shutil
 import sqlite3
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def generate_mock_transactions(count=650):
     currencies = ["USD", "BIF"]
@@ -60,7 +60,7 @@ def generate_mock_transactions(count=650):
     ]
 
     # Distribute timestamps relative to current time so ledger reflects live activity
-    base_time = datetime.utcnow()
+    base_time = datetime.now(timezone.utc)
     transactions = []
 
     for i in range(count):
@@ -133,11 +133,14 @@ def save_to_sqlite(transactions, db_path=None):
     conn.close()
     print(f"Saved {len(transactions)} transactions to SQLite database {db_path}")
 
-    # Also keep fintech.db in sync
+    # Also keep fintech.db and transactions.json in sync
     fintech_db = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fintech.db")
     if os.path.abspath(db_path) != os.path.abspath(fintech_db):
-        import shutil
         shutil.copy2(db_path, fintech_db)
+
+    json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "transactions.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(transactions, f, indent=2)
 
 if __name__ == "__main__":
     txs = generate_mock_transactions(650)
