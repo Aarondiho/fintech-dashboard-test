@@ -82,9 +82,6 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* ==================== RIGHT: CONTROLS & ACTIONS ==================== */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-           
-
-      
 
             {/* Refresh Button */}
             <button
