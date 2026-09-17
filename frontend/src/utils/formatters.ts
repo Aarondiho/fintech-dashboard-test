@@ -46,19 +46,41 @@ export function formatFullDate(isoString: string): string {
 }
 
 /**
- * Relative time helper (e.g. "12m ago", "3h ago", "2d ago")
+ * Relative time helper (e.g. "12m ago", "3h ago", "2d ago", "6mo ago", "1y ago")
+ * Accurately handles past and future timestamps without displaying a redundant full date.
  */
 export function formatRelativeTime(isoString: string): string {
+  if (!isoString) return "";
   try {
+    const target = new Date(isoString);
+    const targetTime = target.getTime();
+    if (isNaN(targetTime)) return isoString;
+
     const now = Date.now();
-    const d = new Date(isoString).getTime();
-    const diffSec = Math.floor((now - d) / 1000);
+    const diffSec = Math.floor((now - targetTime) / 1000);
+
+    // Minor clock skew or future dates
+    if (diffSec < 0) {
+      const absDiff = Math.abs(diffSec);
+      if (absDiff < 60) return "just now";
+      if (absDiff < 3600) return `in ${Math.floor(absDiff / 60)}m`;
+      if (absDiff < 86400) return `in ${Math.floor(absDiff / 3600)}h`;
+      if (absDiff < 86400 * 30) return `in ${Math.floor(absDiff / 86400)}d`;
+      if (absDiff < 86400 * 365) return `in ${Math.max(1, Math.floor(absDiff / (86400 * 30)))}mo`;
+      return `in ${Math.max(1, Math.floor(absDiff / (86400 * 365)))}y`;
+    }
 
     if (diffSec < 60) return "just now";
     if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
     if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
     if (diffSec < 86400 * 30) return `${Math.floor(diffSec / 86400)}d ago`;
-    return formatFullDate(isoString);
+    if (diffSec < 86400 * 365) {
+      const months = Math.max(1, Math.floor(diffSec / (86400 * 30)));
+      return `${months}mo ago`;
+    }
+
+    const years = Math.max(1, Math.floor(diffSec / (86400 * 365)));
+    return `${years}y ago`;
   } catch {
     return isoString;
   }
