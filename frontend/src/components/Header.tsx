@@ -97,18 +97,6 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="hidden sm:inline">Export CSV</span>
             </button>
 
-            {/* Direct Download Clean Project ZIP */}
-            <a
-              id="btn-download-project-zip"
-              href="/fintech-dashboard-test.zip"
-              download="fintech-dashboard-test.zip"
-              title="Download clean, self-contained project ZIP with Python FastAPI, SQLite DB, and React"
-              className="luxe-btn inline-flex items-center justify-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold bg-[#1E293B] hover:bg-[#334155] dark:bg-[#1E293B] dark:hover:bg-[#2A374F] text-white border border-slate-700/60 shadow-xs cursor-pointer transition-all"
-            >
-              <Package className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">Project ZIP</span>
-            </a>
-
             {/* Refresh Button */}
             <button
               id="btn-refresh-data"
