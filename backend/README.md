@@ -4,7 +4,7 @@ This directory contains the Python FastAPI backend service powering the Transact
 
 ## Architecture & Data Source
 - **FastAPI**: REST endpoints with automatic OpenAPI documentation (`/docs`).
-- **SQLite Database**: `transactions.db` initialized with 650+ realistic transaction records.
+- **SQLite Database**: `transactions.db` initialized with 650+ realistic transaction records for immediate evaluation. The seed.py script is also provided to recreate the dataset when needed.
 - **Pydantic Schemas**: Structured validation for records, pagination envelopes, and summary telemetry in `models.py`.
 - **Database Engine**: Optimized SQL queries in `database.py` utilizing parameterized filtering, pagination, and multi-currency aggregation.
 
