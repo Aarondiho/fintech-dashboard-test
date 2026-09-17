@@ -1,4 +1,4 @@
-# Frontend Application (React 19 + TypeScript + Vite)
+# Frontend Application (React 19 + TypeScript + Vite +Tailwind CSS v4)
 
 This directory contains the standalone React 19 frontend for the Transaction Reporting Dashboard.
 
@@ -11,7 +11,10 @@ This directory contains the standalone React 19 frontend for the Transaction Rep
 - `src/components/PaginationControls.tsx`: Server-driven page navigation with responsive page size controls.
 - `src/components/TransactionModal.tsx`: Comprehensive audit ledger modal with cryptographic hash verification and JSON raw payload inspection.
 - `src/components/ErrorBanner.tsx`: Resilient error banner and toast with automated retry trigger.
+- `src/components/CosmicBackground.tsx`: Background moving icons for attractive design
+- `src/components/Header.tsx`: Navbar's contents
 - `src/utils/formatters.ts`: Subunit currency arithmetic (preventing floating-point rounding bugs) and timestamp formatting.
+
 
 ## Running Locally
 
