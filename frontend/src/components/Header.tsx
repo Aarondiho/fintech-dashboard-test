@@ -84,18 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-1.5 sm:gap-2">
            
 
-            {/* Export CSV Button with Solid Brand Gradient */}
-            <button
-              id="btn-export-csv"
-              type="button"
-              onClick={onExportCsv}
-              disabled={isExporting}
-              title="Export currently filtered dataset as CSV"
-              className="luxe-btn inline-flex items-center justify-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#690E22] via-[#831C35] to-[#A42544] hover:brightness-110 text-white border border-white/25 shadow-md shadow-[#831C35]/25 cursor-pointer disabled:opacity-50 transition-all"
-            >
-              <Download className="w-3.5 h-3.5 text-white" />
-              <span className="hidden sm:inline">Export CSV</span>
-            </button>
+      
 
             {/* Refresh Button */}
             <button
