@@ -2,6 +2,8 @@
 
 This directory contains the standalone React 19 frontend for the Transaction Reporting Dashboard.
 
+The frontend provides a responsive, interactive interface for viewing, filtering, searching, and analyzing financial transaction data through the FastAPI backend.
+
 ## Architecture & Structure
 - `src/App.tsx`: Main application container with bidirectional URL query parameter synchronization, debounced state management, and API orchestration.
 - `src/components/FilterBar.tsx`: Debounced search, multi-criteria filter dropdowns (Status, Channel, Currency), and quick presets.
