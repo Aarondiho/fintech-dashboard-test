@@ -5,7 +5,7 @@ A responsive, single-page transaction reporting dashboard for viewing, filtering
 Built with:
 
 * **Backend:** Python, FastAPI, SQLite
-* **Frontend:** React 19, TypeScript, Vite
+* **Frontend:** React 19, TypeScript, Vite, Tailwind CSS v4
 * **Data:** 650+ seeded transaction records
 
 ## Features
@@ -27,11 +27,9 @@ fintech-dashboard-test/
 │   ├── main.py               # FastAPI application with CORS and OpenAPI docs
 │   ├── models.py             # Pydantic schema models for transactions and summaries
 │   ├── database.py           # SQLite database engine with indexed filtering & aggregation
-│   ├── server.py             # Zero-dependency Python standalone server (standard library)
 │   ├── seed.py               # Script to generate 650+ realistic fintech records
 │   ├── requirements.txt      # Python dependencies (FastAPI, Uvicorn, Pydantic)
 │   ├── transactions.db       # Seeded SQLite database
-│   ├── transactions.json     # Seeded JSON dataset
 │   └── README.md             # Dedicated backend setup & API documentation
 ├── frontend/
 │   ├── src/                  # React 19 + TypeScript source code
@@ -40,6 +38,7 @@ fintech-dashboard-test/
 │   │   ├── types.ts          # Shared TypeScript interfaces
 │   │   ├── App.tsx           # Main application state and URL synchronization
 │   │   └── main.tsx          # React application entry point
+│   │   └── index.css         # Tailwind CSS v4 setup, theme tokens & styling
 │   ├── index.html            # HTML entry point with metadata
 │   ├── package.json          # Frontend npm scripts and dependencies
 │   ├── tsconfig.json         # TypeScript configuration
@@ -120,7 +119,12 @@ The Vite development server proxies `/api` requests to the FastAPI backend at `h
 
 To regenerate 650+ fresh randomized transaction records in both SQLite and JSON:
 ```bash
+# macOS / Linux / Ubuntu
 python3 backend/seed.py
+
+# Windows
+py backend/seed.py
+
 ```
 
 ---
@@ -195,22 +199,20 @@ Returns aggregated statistics computed dynamically across the current filter sco
 
 ## 📐 Architectural Decisions & Tradeoffs
 
-1. React + FastAPI: 
+1. *React + Vite + FastAPI:*
+   React + Vite was chosen for the single-page, highly interactive dashboard and strict 48-hour deadline, providing fast development and direct integration with the FastAPI backend. The frontend and backend are separated and communicate through REST APIs, making the application easier to maintain and extend.
 
-Frontend and backend are separated and communicate through REST APIs, making the application easier to maintain and extend.
+2. *SQLite:*
+   Chosen for its zero-configuration setup and suitability for the assessment's seeded dataset. For a production system with high concurrency, a server-grade database such as PostgreSQL would be more appropriate.
 
-2. SQLite:
+3. *Server-Side Processing:*
+   Filtering, searching, pagination, and summary calculations are handled by the backend to reduce data transfer and support larger datasets efficiently.
 
-Chosen for its zero-configuration setup and suitability for the assessment's seeded dataset. For a production system with high concurrency, a server-grade database such as PostgreSQL would be more appropriate.
+4. *Integer-Based Monetary Values:*
+   Amounts are stored in the lowest currency subunit to avoid floating-point rounding issues in financial calculations.
 
-3. Server-Side Processing:
+5. *Debounced Search & URL State:*
+   Search is debounced by 400ms to reduce unnecessary requests, while filters are synchronized with URL parameters to preserve and share dashboard views.
 
-Filtering, searching, pagination, and summary calculations are handled by the backend to reduce data transfer and support larger datasets efficiently.
-
-4. Integer-Based Monetary Values:
-
-Amounts are stored in the lowest currency subunit to avoid floating-point rounding issues in financial calculations.
-
-5. Debounced Search & URL State:
-
-Search is debounced by 400ms to reduce unnecessary requests, while filters are synchronized with URL parameters to preserve and share dashboard views.
+6. *Utility-First Styling with Tailwind CSS:*
+   Chosen for consistent styling and responsive design, with built-in `dark:` variants for light/dark mode and responsive layouts.
